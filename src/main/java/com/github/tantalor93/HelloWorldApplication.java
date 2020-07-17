@@ -1,7 +1,6 @@
 package com.github.tantalor93;
 
 import com.github.tantalor93.config.HelloWorldConfiguration;
-import com.github.tantalor93.health.TemplateHealthCheck;
 import com.github.tantalor93.rest.HelloWorldResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -25,13 +24,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
     @Override
     public void run(HelloWorldConfiguration configuration, Environment environment) throws Exception {
-        final HelloWorldResource helloWorldResource = new HelloWorldResource(
-                configuration.getTemplate(),
-                configuration.getDefaultName()
-        );
-        final TemplateHealthCheck healthCheck =
-                new TemplateHealthCheck(configuration.getTemplate());
-        environment.healthChecks().register("template", healthCheck);
+        HelloWorldResource helloWorldResource = new HelloWorldResource();
         environment.jersey().register(helloWorldResource);
     }
 }
